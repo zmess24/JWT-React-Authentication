@@ -12,8 +12,9 @@ mongoose.connect(MONGODB_URI, { useNewUrlParser: true }, (err) => {
 	console.log(err || `Connected to MongoDB.`)
 })
 
-app.use(logger('dev'))
-app.use(express.json())
+app.use(express.static(`${__dirname}/client/build`));
+app.use(logger('dev'));
+app.use(express.json());
 
 app.get('/api', (req, res) => {
 	res.json({message: "API root."})

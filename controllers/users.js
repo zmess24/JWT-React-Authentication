@@ -20,9 +20,11 @@ module.exports = {
 
 	// create a new user
 	create: (req, res) => {
+		console.log(req.body)
 		User.create(req.body, (err, user) => {
-			if(err) return res.json({message: "ERROR", payload: null, code: err.code})
-			res.json({ message: "SUCCESS", payload: user })
+			if(err) return res.json({message: "ERROR", payload: err, code: err.code})
+			const token = signToken(user);
+			res.json({ message: "SUCCESS", token })
 		})
 	},
 
@@ -33,7 +35,8 @@ module.exports = {
 			Object.assign(user, req.body)
 			user.save((err, updatedUser) => {
 				if(err) return res.json({message: "ERROR", payload: null, code: err.code})
-				res.json({ message: "SUCCESS", payload: user })
+				const token = signToken(updatedUser);
+				res.json({ message: "SUCCESS", token })
 			})
 		})
 	},

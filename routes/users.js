@@ -7,6 +7,7 @@ const
 usersRouter.get('/', usersCtrl.index)
 usersRouter.post('/', usersCtrl.create)
 usersRouter.post('/authenticate', usersCtrl.authenticate); // Login Route.
+
 // Verifiys that a user has a valid token before showing subsequent routes
 usersRouter.use(verifyToken); 
 usersRouter.get('/:id', usersCtrl.show)
